@@ -43,38 +43,38 @@ public class PlayerMovement : MonoBehaviour
                        (transform.forward * z);
         controller.Move(move * speed * Time.deltaTime);
 
-        if(controller.isGrounded)
-        {
-            velocity.y = 0.0f;
-        }
+        //if(controller.isGrounded)
+        //{
+        //    velocity.y = 0.0f;
+        //}
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            ballSpeed += Time.deltaTime;
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ballSpeed += Time.deltaTime;
+        //}
 
-        if(Input.GetButton("Jump"))
-        {
-            ballSpeed += Time.deltaTime * 10.0f;
-            force.SetForce((int)ballSpeed);
-            Vector3 playerToBall = ballPosition.position - transform.position;
-            playerToBall *= 2;
-            placeToLookAt = new Vector3(playerToBall.x,0,playerToBall.z);
-        }
+        //if(Input.GetButton("Jump"))
+        //{
+        //    ballSpeed += Time.deltaTime * 10.0f;
+        //    force.SetForce((int)ballSpeed);
+        //    Vector3 playerToBall = ballPosition.position - transform.position;
+        //    playerToBall *= 2;
+        //    placeToLookAt = new Vector3(playerToBall.x,0,playerToBall.z);
+        //}
 
 
-        if (Input.GetButtonUp("Jump"))
-        {
-            ballHit.Play();
-            arrow.SetActive(false);
-            golfBall.velocity = new 
-            Vector3( placeToLookAt.x * (ballSpeed /10), 0, placeToLookAt.z * (ballSpeed / 10));
+        //if (Input.GetButtonUp("Jump"))
+        //{
+        //    ballHit.Play();
+        //    arrow.SetActive(false);
+        //    golfBall.velocity = new 
+        //    Vector3( placeToLookAt.x * (ballSpeed /10), 0, placeToLookAt.z * (ballSpeed / 10));
 
-            ballSpeed = 0.0f;
-            stroke.AddStroke();
-        }
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        //    ballSpeed = 0.0f;
+        //    stroke.AddStroke();
+        //}
+        //velocity.y += gravity * Time.deltaTime;
+        //controller.Move(velocity * Time.deltaTime);
     }
 
     public void setSpeed(float newSpeed)
