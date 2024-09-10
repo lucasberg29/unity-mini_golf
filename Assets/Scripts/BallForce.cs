@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BallForce : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class BallForce : MonoBehaviour
     
     private float forceAcumulated;
 
-    public Text forceText;
-    public Text strokeText;
-    
+    //public Text forceText;
+    //public Text strokeText;
+
+    public TextMeshProUGUI forceText;
+    public TextMeshProUGUI strokeText;
+
+
     public void IncreaseScore()
     {
         score = score + 1;

@@ -10,28 +10,31 @@ public class Flag : MonoBehaviour
 
     MusicManager manager;
 
-    public void victory()
+    public void Victory()
     {
-        manager = GameObject.Find("Music Manager").GetComponent<MusicManager>();
-        manager.PlayVictory(); 
+        //manager = GameObject.Find("Music Manager").GetComponent<MusicManager>();
+        //manager.PlayVictory(); 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        victory();
-        string sceneIndex = SceneManager.GetActiveScene().name;
- 
-        if (sceneIndex == "Level1")
+        if (other.gameObject.tag == "GolfBall")
         {
-            SceneManager.LoadScene("Level2");
-        }
-        else if (sceneIndex == "Level2")
-        {
-            SceneManager.LoadScene("Level3");
-        }
-        else if (sceneIndex == "Level3")
-        {
-            SceneManager.LoadScene("Level1");
+            Victory();
+            string sceneIndex = SceneManager.GetActiveScene().name;
+
+            if (sceneIndex == "Level1")
+            {
+                SceneManager.LoadScene("Level2");
+            }
+            else if (sceneIndex == "Level2")
+            {
+                SceneManager.LoadScene("Level3");
+            }
+            else if (sceneIndex == "Level3")
+            {
+                SceneManager.LoadScene("Level1");
+            }
         }
     }
 }
