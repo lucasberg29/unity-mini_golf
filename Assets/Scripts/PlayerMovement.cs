@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform cameraTransform;
     public BallForce stroke;
     public BallForce force;
+
+    public Slider slider;
+    public float sliderTimer;
 
     public Vector3 velocity;
     Vector3 placeToLookAt = Vector3.zero;
@@ -66,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
             placeToLookAt = new Vector3(playerToBall.x, 0, playerToBall.z);
         }
 
+        sliderTimer += Time.deltaTime;
+        slider.value = ((1.0f + Mathf.Sin(sliderTimer - Mathf.PI / 2)) / 2.0f);
 
         if (Input.GetButtonUp("Jump"))
         {
