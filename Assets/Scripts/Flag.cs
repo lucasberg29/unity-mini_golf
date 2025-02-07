@@ -5,15 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Flag : MonoBehaviour
 {
-    BoxCollider boxCollider;
+    CapsuleCollider boxCollider;
     AudioSource victorySound;
 
     MusicManager manager;
 
     public void Victory()
     {
-        //manager = GameObject.Find("Music Manager").GetComponent<MusicManager>();
-        //manager.PlayVictory(); 
+
     }
 
     private void OnTriggerEnter(Collider other)

@@ -9,7 +9,6 @@ public class SliderManager : MonoBehaviour
     public Color minColor;
     public Color maxColor;
 
-
     // Start is called before the first frame update
     void Start()
     {

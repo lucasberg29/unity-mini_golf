@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3.0f;
     public float ballSpeed = 0.0f;
+    public float maxVelocity = 10.0f;
 
     public GameObject arrow;
 
@@ -27,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 velocity;
     Vector3 placeToLookAt = Vector3.zero;
+
+    public AnimationCurve easeInCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     // Start is called before the first frame update
     void Start()
@@ -56,35 +60,45 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    ballSpeed += Time.deltaTime;
-        //}
-
         if (Input.GetButton("Jump"))
         {
-            ballSpeed += Time.deltaTime * 10.0f;
-            force.SetForce((int)ballSpeed);
+            //ballSpeed += Time.deltaTime * 10.0f;
+            //force.SetForce((int)ballSpeed);
             Vector3 playerToBall = ballPosition.position - transform.position;
             playerToBall *= 2;
             placeToLookAt = new Vector3(playerToBall.x, 0, playerToBall.z);
+
+            sliderTimer += Time.deltaTime;
+        }
+        else
+        {
+            sliderTimer -= Time.deltaTime * 0.2f;
         }
 
-        sliderTimer += Time.deltaTime;
-        slider.value = ((1.0f + Mathf.Sin(sliderTimer - Mathf.PI / 2)) / 2.0f);
+        slider.value = easeInCurve.Evaluate(sliderTimer);
+
+        if (slider.value > 1.0f)
+        {
+            slider.value = 1.0f;
+        }
+
+        if (sliderTimer > 1.0f)
+        {
+            sliderTimer = 1.0f;
+        }
 
         if (Input.GetButtonUp("Jump"))
         {
             ballHit.Play();
             arrow.SetActive(false);
-            golfBall.velocity = new
-            Vector3(placeToLookAt.x * (ballSpeed / 10), 0, placeToLookAt.z * (ballSpeed / 10));
+
+            ballSpeed = slider.value * maxVelocity;
+            golfBall.linearVelocity = new
+            Vector3(placeToLookAt.x * (ballSpeed / 10.0f), 0.0f, placeToLookAt.z * (ballSpeed / 10.0f));
 
             ballSpeed = 0.0f;
             stroke.AddStroke();
         }
-        //velocity.y += gravity * Time.deltaTime;
-        //controller.Move(velocity * Time.deltaTime);
     }
 
     public void setSpeed(float newSpeed)

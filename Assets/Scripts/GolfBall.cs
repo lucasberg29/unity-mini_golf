@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,18 +12,32 @@ public class GolfBall : MonoBehaviour
 
     public Rigidbody thisRigidBody;
 
-    public GameObject arrow;
+    private GameObject arrow;
+
+    private void Start()
+    {
+        arrow = GetComponentInChildren<Transform>().gameObject;    
+    }
 
     private void Update()
+    {
+        UpdateGolfBallOrientation();
+        DisableArrowIfNoVelocity();
+    }
+
+    private void DisableArrowIfNoVelocity()
+    {
+        if (thisRigidBody.linearVelocity == Vector3.zero)
+        {
+            arrow.SetActive(true);
+        }
+    }
+
+    private void UpdateGolfBallOrientation()
     {
         Vector3 playerToBall = playerTransform.position - transform.position;
         playerToBall *= 2;
         Vector3 placeToLookAt = playerToBall + playerTransform.position;
         transform.LookAt(new Vector3(placeToLookAt.x, transform.position.y, placeToLookAt.z));
-
-        if (thisRigidBody.velocity == Vector3.zero)
-        {
-            arrow.SetActive(true);
-        }
     }
 }

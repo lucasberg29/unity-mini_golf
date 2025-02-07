@@ -11,12 +11,8 @@ public class BallForce : MonoBehaviour
     
     private float forceAcumulated;
 
-    //public Text forceText;
-    //public Text strokeText;
-
     public TextMeshProUGUI forceText;
     public TextMeshProUGUI strokeText;
-
 
     public void IncreaseScore()
     {
