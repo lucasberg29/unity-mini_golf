@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class GolfBall : MonoBehaviour
 {
-    public Transform playerTransform;
-    public Transform thisTransform;
+    private GameObject player;
     
     public Camera playerCamera;
 
@@ -16,7 +15,8 @@ public class GolfBall : MonoBehaviour
 
     private void Start()
     {
-        arrow = GetComponentInChildren<Transform>().gameObject;    
+        arrow = GetComponentInChildren<Transform>().gameObject;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -35,9 +35,9 @@ public class GolfBall : MonoBehaviour
 
     private void UpdateGolfBallOrientation()
     {
-        Vector3 playerToBall = playerTransform.position - transform.position;
+        Vector3 playerToBall = player.transform.position - transform.position;
         playerToBall *= 2;
-        Vector3 placeToLookAt = playerToBall + playerTransform.position;
+        Vector3 placeToLookAt = playerToBall + player.transform.position;
         transform.LookAt(new Vector3(placeToLookAt.x, transform.position.y, placeToLookAt.z));
     }
 }

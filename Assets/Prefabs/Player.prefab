@@ -63,6 +63,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -126,7 +129,6 @@ CharacterController:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -148,6 +150,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 50b8947946e390c438cb2437edca52df, type: 3}
+  m_Resource: {fileID: 8300000, guid: 50b8947946e390c438cb2437edca52df, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -250,14 +253,42 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 3
   ballSpeed: 0
+  minVelocity: 10
+  maxVelocity: 80
   arrow: {fileID: 0}
   ballHit: {fileID: 0}
   golfBall: {fileID: 0}
   ballPosition: {fileID: 0}
   cameraTransform: {fileID: 0}
-  stroke: {fileID: 0}
+  strike: {fileID: 0}
   force: {fileID: 0}
+  slider: {fileID: 0}
+  sliderTimer: 0
   velocity: {x: 0, y: 0, z: 0}
+  easeInCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1624828708810994396
 GameObject:
   m_ObjectHideFlags: 0

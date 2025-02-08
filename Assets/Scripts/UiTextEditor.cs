@@ -18,7 +18,7 @@ public class UiTextEditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textMeshPro = GameObject.FindObjectsOfType<TextMeshProUGUI>().ToList(); 
+        textMeshPro = GameObject.FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None).ToList(); 
 
         if (textMeshPro.First().fontSize != fullHdFontSize || Screen.width != 1920)
         {

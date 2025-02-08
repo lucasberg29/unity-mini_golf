@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3.0f;
     public float ballSpeed = 0.0f;
+
+    public float minVelocity = 1.0f;
     public float maxVelocity = 10.0f;
 
     public GameObject arrow;
@@ -21,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody golfBall;
     public Transform ballPosition;
     public Transform cameraTransform;
-    public BallForce stroke;
+    public BallForce strike;
     public BallForce force;
 
     public Slider slider;
@@ -92,12 +94,12 @@ public class PlayerMovement : MonoBehaviour
             ballHit.Play();
             arrow.SetActive(false);
 
-            ballSpeed = slider.value * maxVelocity;
+            ballSpeed = slider.value * maxVelocity + minVelocity;
             golfBall.linearVelocity = new
             Vector3(placeToLookAt.x * (ballSpeed / 10.0f), 0.0f, placeToLookAt.z * (ballSpeed / 10.0f));
 
             ballSpeed = 0.0f;
-            stroke.AddStroke();
+            strike.AddStroke();
         }
     }
 

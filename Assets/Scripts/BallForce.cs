@@ -6,13 +6,13 @@ using TMPro;
 
 public class BallForce : MonoBehaviour
 {
-    private int stroke;
+    private int strike;
     private int score = 0;
     
-    private float forceAcumulated;
+    private float forceAccumulated;
 
     public TextMeshProUGUI forceText;
-    public TextMeshProUGUI strokeText;
+    public TextMeshProUGUI strikeText;
 
     public void IncreaseScore()
     {
@@ -28,8 +28,8 @@ public class BallForce : MonoBehaviour
 
     public void AddStroke()
     {
-        stroke += 1;
-        strokeText.text = "STROKE: " + stroke;
+        strike += 1;
+        strikeText.text = "STRIKE: " + strike;
     }
 
     public void ResetScore()
