@@ -1,6 +1,8 @@
 ﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,12 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource ballHit;
 
-    public Rigidbody golfBall;
-    public Transform ballPosition;
+    public GameObject golfBall;
+
     public Transform cameraTransform;
     public BallForce strike;
     public BallForce force;
 
+    private bool isSliderGrowing = false;
+    private bool isSliderShrinking = false;
     public Slider slider;
     public float sliderTimer;
 
@@ -34,59 +38,93 @@ public class PlayerMovement : MonoBehaviour
 
     public AnimationCurve easeInCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    // Start is called before the first frame update
+    private bool isCharging = false;
+    private bool isRecharging = false;
+
+    private float rechargerTimer = 0.0f;
+
+
+
     void Start()
     {
+        golfBall = GameObject.FindGameObjectWithTag("GolfBall");
+
         if (controller.isGrounded)
         {
             velocity.y = 0.0f;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 moveDirection = (transform.right * x) +
-                       (transform.forward * z);
-        controller.Move(moveDirection * speed * Time.deltaTime);
-
-
-        if (controller.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2.0f;
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        UpdatePosition();
 
         if (Input.GetButton("Jump"))
         {
-            //ballSpeed += Time.deltaTime * 10.0f;
-            //force.SetForce((int)ballSpeed);
-            Vector3 playerToBall = ballPosition.position - transform.position;
+            Vector3 playerToBall = golfBall.transform.position - transform.position;
             playerToBall *= 2;
             placeToLookAt = new Vector3(playerToBall.x, 0, playerToBall.z);
 
             sliderTimer += Time.deltaTime;
-        }
-        else
-        {
-            sliderTimer -= Time.deltaTime * 0.2f;
+            isRecharging = false;
+            rechargerTimer = 0.0f;
+
+            if (!isCharging)
+            {
+                easeInCurve.ClearKeys();
+                easeInCurve.AddKey(0.0f, slider.value);
+                easeInCurve.AddKey(1.0f / ( 1.0f - slider.value), 1.0f);
+            }
+
+            isCharging = true;
         }
 
-        slider.value = easeInCurve.Evaluate(sliderTimer);
-
-        if (slider.value > 1.0f)
+        if (isCharging)
         {
-            slider.value = 1.0f;
+            float sineValue = easeInCurve.Evaluate(sliderTimer);
+            slider.value = sineValue;
         }
 
-        if (sliderTimer > 1.0f)
+        if (isRecharging)
         {
-            sliderTimer = 1.0f;
+            rechargerTimer += Time.deltaTime;
+            float sineValue = easeInCurve.Evaluate(rechargerTimer);
+            slider.value = sineValue;
+
+            if (slider.value == 0.0f)
+            {
+                isRecharging = false;
+                rechargerTimer = 0.0f;
+                sliderTimer = 0.0f;
+
+                easeInCurve.ClearKeys();
+                easeInCurve.AddKey(0.0f, 0.0f);
+                easeInCurve.AddKey(1.0f, 1.0f);
+            }
+        }
+
+        if (isCharging)
+        {
+            if (slider.value == 1.0f)
+            {
+                isSliderShrinking = true;
+
+                easeInCurve.ClearKeys();
+                easeInCurve.AddKey(0.0f, 1.0f);
+                easeInCurve.AddKey(1.0f, 0.0f);
+                sliderTimer = 0.0f;
+            }
+
+            if (slider.value == 0.0f)
+            {
+                isSliderShrinking = false;
+                isSliderGrowing = true;
+
+                easeInCurve.ClearKeys();
+                easeInCurve.AddKey(0.0f, 0.0f);
+                easeInCurve.AddKey(1.0f, 1.0f);
+                sliderTimer = 0.0f;
+            }
         }
 
         if (Input.GetButtonUp("Jump"))
@@ -95,12 +133,39 @@ public class PlayerMovement : MonoBehaviour
             arrow.SetActive(false);
 
             ballSpeed = slider.value * maxVelocity + minVelocity;
-            golfBall.linearVelocity = new
+
+            golfBall.GetComponent<Rigidbody>().linearVelocity = new
             Vector3(placeToLookAt.x * (ballSpeed / 10.0f), 0.0f, placeToLookAt.z * (ballSpeed / 10.0f));
 
             ballSpeed = 0.0f;
             strike.AddStroke();
+
+            easeInCurve.ClearKeys();
+            easeInCurve.AddKey(0.0f, slider.value);
+            easeInCurve.AddKey(0.3f, 0.0f);
+            sliderTimer = 0.0f;
+            rechargerTimer = 0.0f;
+            isCharging = false;
+            isRecharging = true;
         }
+    }
+
+    private void UpdatePosition()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 moveDirection = (transform.right * x) +
+                       (transform.forward * z);
+        controller.Move(moveDirection * speed * Time.deltaTime);
+
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2.0f;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public void setSpeed(float newSpeed)

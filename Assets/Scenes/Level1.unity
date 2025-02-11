@@ -2977,6 +2977,11 @@ PrefabInstance:
       objectReference: {fileID: 1184246418}
     - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
         type: 3}
+      propertyPath: easeInCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
+        type: 3}
       propertyPath: easeInCurve.m_Curve.Array.data[0].inSlope
       value: 1
       objectReference: {fileID: 0}
@@ -3025,7 +3030,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2607086444404882063, guid: be1c3c24a177b234fb8c3f7a10643358,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2607086444404882063, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2607086444404882063, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708280640772661979, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2925419673188234307, guid: be1c3c24a177b234fb8c3f7a10643358,
@@ -3132,6 +3152,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930407503693894884, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_text
+      value: 'Strikes: 0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281133358753116571, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
