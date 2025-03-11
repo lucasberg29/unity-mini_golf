@@ -443,6 +443,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1624828708810994392, guid: 13f4be66514ba054d82a08664c2e2f24,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
         type: 3}
       propertyPath: arrow

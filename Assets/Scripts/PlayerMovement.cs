@@ -28,8 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public BallForce strike;
     public BallForce force;
 
-    private bool isSliderGrowing = false;
-    private bool isSliderShrinking = false;
     public Slider slider;
     public float sliderTimer;
 
@@ -42,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isRecharging = false;
 
     private float rechargerTimer = 0.0f;
-
-
 
     void Start()
     {
@@ -61,24 +57,57 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButton("Jump"))
         {
-            Vector3 playerToBall = golfBall.transform.position - transform.position;
-            playerToBall *= 2;
-            placeToLookAt = new Vector3(playerToBall.x, 0, playerToBall.z);
-
-            sliderTimer += Time.deltaTime;
-            isRecharging = false;
-            rechargerTimer = 0.0f;
-
-            if (!isCharging)
+            if (!isRecharging)
             {
-                easeInCurve.ClearKeys();
-                easeInCurve.AddKey(0.0f, slider.value);
-                easeInCurve.AddKey(1.0f / ( 1.0f - slider.value), 1.0f);
-            }
+                Vector3 playerToBall = golfBall.transform.position - transform.position;
+                playerToBall *= 2;
+                placeToLookAt = new Vector3(playerToBall.x, 0, playerToBall.z);
 
-            isCharging = true;
+                sliderTimer += Time.deltaTime;
+                isRecharging = false;
+                rechargerTimer = 0.0f;
+
+                if (!isCharging)
+                {
+                    easeInCurve.ClearKeys();
+                    easeInCurve.AddKey(0.0f, slider.value);
+                    easeInCurve.AddKey(1.0f / (1.0f - slider.value), 1.0f);
+                }
+
+                isCharging = true;
+            }
         }
 
+        UpdateSlider();
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            if (isCharging)
+            {
+                ballHit.Play();
+                arrow.SetActive(false);
+
+                ballSpeed = slider.value * maxVelocity + minVelocity;
+
+                golfBall.GetComponent<Rigidbody>().linearVelocity = new
+                Vector3(placeToLookAt.x * (ballSpeed / 10.0f), 0.0f, placeToLookAt.z * (ballSpeed / 10.0f));
+
+                ballSpeed = 0.0f;
+                strike.AddStroke();
+
+                easeInCurve.ClearKeys();
+                easeInCurve.AddKey(0.0f, slider.value);
+                easeInCurve.AddKey(0.3f, 0.0f);
+                sliderTimer = 0.0f;
+                rechargerTimer = 0.0f;
+                isCharging = false;
+                isRecharging = true;
+            }
+        }
+    }
+
+    private void UpdateSlider()
+    {
         if (isCharging)
         {
             float sineValue = easeInCurve.Evaluate(sliderTimer);
@@ -107,8 +136,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (slider.value == 1.0f)
             {
-                isSliderShrinking = true;
-
                 easeInCurve.ClearKeys();
                 easeInCurve.AddKey(0.0f, 1.0f);
                 easeInCurve.AddKey(1.0f, 0.0f);
@@ -117,36 +144,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (slider.value == 0.0f)
             {
-                isSliderShrinking = false;
-                isSliderGrowing = true;
-
                 easeInCurve.ClearKeys();
                 easeInCurve.AddKey(0.0f, 0.0f);
                 easeInCurve.AddKey(1.0f, 1.0f);
                 sliderTimer = 0.0f;
             }
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            ballHit.Play();
-            arrow.SetActive(false);
-
-            ballSpeed = slider.value * maxVelocity + minVelocity;
-
-            golfBall.GetComponent<Rigidbody>().linearVelocity = new
-            Vector3(placeToLookAt.x * (ballSpeed / 10.0f), 0.0f, placeToLookAt.z * (ballSpeed / 10.0f));
-
-            ballSpeed = 0.0f;
-            strike.AddStroke();
-
-            easeInCurve.ClearKeys();
-            easeInCurve.AddKey(0.0f, slider.value);
-            easeInCurve.AddKey(0.3f, 0.0f);
-            sliderTimer = 0.0f;
-            rechargerTimer = 0.0f;
-            isCharging = false;
-            isRecharging = true;
         }
     }
 
@@ -155,8 +157,8 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = (transform.right * x) +
-                       (transform.forward * z);
+        Vector3 moveDirection = (cameraTransform.right * x) +
+                       (cameraTransform.forward * z);
         controller.Move(moveDirection * speed * Time.deltaTime);
 
         if (controller.isGrounded && velocity.y < 0)

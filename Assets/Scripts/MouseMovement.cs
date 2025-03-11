@@ -4,27 +4,42 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    public float xRotation;
-    public float mouseSensitivity = 10.0f;
-    public Transform playerTransform;
+    [SerializeField]
+    private Vector2 mMouseTurn;
+
+    public float xRotation = 0.0f;
+    public float mouseSensitivity = 1.0f;
+
+    private Vector2 currentRotation;
+    private Vector2 rotationVelocity;
+
+    public float smoothTime; // Smoothing factor
 
     void Start()
     {
+        xRotation = 0.0f;
+        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
-        float xMovement = Input.GetAxis("Mouse X") * mouseSensitivity;
-        playerTransform.Rotate(Vector3.up, xMovement);
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        float yMovement = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        // Accumulate input
+        mMouseTurn.x += mouseX;
+        mMouseTurn.y -= mouseY; // Inverting Y-axis
 
-        xRotation += yMovement;
-        xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
+        // Clamp vertical rotation to prevent flipping
+        mMouseTurn.y = Mathf.Clamp(mMouseTurn.y, -89f, 89f);
 
-        transform.localRotation = Quaternion.Euler(-xRotation, 0, 0);
+        // Smooth transition using Lerp
+        currentRotation.x = Mathf.Lerp(currentRotation.x, mMouseTurn.x, smoothTime);
+        currentRotation.y = Mathf.Lerp(currentRotation.y, mMouseTurn.y, smoothTime);
 
+        // Apply rotation
+        transform.localRotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0.0f);
     }
 
     public void SetMouseSensitivity(float newSensitivity)
