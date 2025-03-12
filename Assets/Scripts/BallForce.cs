@@ -29,7 +29,7 @@ public class BallForce : MonoBehaviour
     public void AddStroke()
     {
         strike += 1;
-        strikeText.text = "STRIKE: " + strike;
+        strikeText.text = "Strikes: " + strike;
     }
 
     public void ResetScore()

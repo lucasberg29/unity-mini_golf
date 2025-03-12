@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject golfBall;
 
-    public Transform cameraTransform;
+    public GameObject mainCamera;
+
     public BallForce strike;
     public BallForce force;
 
@@ -41,6 +42,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float rechargerTimer = 0.0f;
 
+    private float smoothTime = 0.1f;
+    private Vector3 currentVelocity;
+
+    public LevelUi levelUi;
+
+    public float playerSpeed;
+
     void Start()
     {
         golfBall = GameObject.FindGameObjectWithTag("GolfBall");
@@ -49,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = 0.0f;
         }
+
+        levelUi = GameObject.FindGameObjectWithTag("LevelUi").GetComponent<LevelUi>();
     }
 
     void Update()
@@ -102,6 +112,12 @@ public class PlayerMovement : MonoBehaviour
                 rechargerTimer = 0.0f;
                 isCharging = false;
                 isRecharging = true;
+
+                if (slider.value > 0.92f)
+                {
+                    rechargerTimer -= 0.1f;
+                    levelUi.MaxForce();
+                }
             }
         }
     }
@@ -152,22 +168,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void UpdatePosition()
     {
+        velocity = controller.velocity;
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = (cameraTransform.right * x) +
-                       (cameraTransform.forward * z);
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        Vector3 forward = mainCamera.transform.forward;
+        forward.y = 0;
+        forward.Normalize();
 
-        if (controller.isGrounded && velocity.y < 0)
+        Vector3 right = mainCamera.transform.right;
+        right.y = 0;
+        right.Normalize();
+
+        Vector3 targetVelocity = (right * x + forward * z) * playerSpeed;
+
+        Vector3 smoothedVelocity = Vector3.SmoothDamp(velocity, targetVelocity, ref currentVelocity, smoothTime);
+
+        if (!controller.isGrounded)
         {
-            velocity.y = -2.0f;
+            controller.Move(Vector3.down * Time.deltaTime * 5.0f);
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(smoothedVelocity * Time.deltaTime);
     }
 
     public void setSpeed(float newSpeed)

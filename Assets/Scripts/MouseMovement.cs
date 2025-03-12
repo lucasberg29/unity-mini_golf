@@ -13,7 +13,7 @@ public class MouseMovement : MonoBehaviour
     private Vector2 currentRotation;
     private Vector2 rotationVelocity;
 
-    public float smoothTime; // Smoothing factor
+    public float smoothTime;
 
     void Start()
     {
@@ -29,16 +29,13 @@ public class MouseMovement : MonoBehaviour
 
         // Accumulate input
         mMouseTurn.x += mouseX;
-        mMouseTurn.y -= mouseY; // Inverting Y-axis
+        mMouseTurn.y -= mouseY;
 
-        // Clamp vertical rotation to prevent flipping
         mMouseTurn.y = Mathf.Clamp(mMouseTurn.y, -89f, 89f);
 
-        // Smooth transition using Lerp
         currentRotation.x = Mathf.Lerp(currentRotation.x, mMouseTurn.x, smoothTime);
         currentRotation.y = Mathf.Lerp(currentRotation.y, mMouseTurn.y, smoothTime);
 
-        // Apply rotation
         transform.localRotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0.0f);
     }
 

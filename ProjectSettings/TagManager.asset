@@ -7,6 +7,8 @@ TagManager:
   - GolfBall
   - Arrow
   - Floor
+  - MaxStars
+  - LevelUi
   layers:
   - Default
   - TransparentFX

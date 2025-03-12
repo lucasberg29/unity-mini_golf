@@ -135,7 +135,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 1
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -248,18 +248,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b825e000c94ba84a8fb5305692d790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  speed: 10
+  controller: {fileID: 1624828708497102227}
+  speed: 4
   gravity: -9.81
   jumpHeight: 3
   ballSpeed: 0
   minVelocity: 10
   maxVelocity: 80
   arrow: {fileID: 0}
-  ballHit: {fileID: 0}
+  ballHit: {fileID: 1624828708497102313}
   golfBall: {fileID: 0}
-  ballPosition: {fileID: 0}
-  cameraTransform: {fileID: 0}
+  mainCamera: {fileID: 1624828708810994396}
   strike: {fileID: 0}
   force: {fileID: 0}
   slider: {fileID: 0}
@@ -271,24 +270,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  levelUi: {fileID: 0}
+  playerSpeed: 5
 --- !u!1 &1624828708810994396
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624828708810994396}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -356,7 +357,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 72
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -394,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883f0c97e5d22a144a887c193f29bf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMouseTurn: {x: 0, y: 0}
   xRotation: 0
-  mouseSensitivity: 10
-  playerTransform: {fileID: 1624828708497102319}
+  mouseSensitivity: 1
+  smoothTime: 0.2
