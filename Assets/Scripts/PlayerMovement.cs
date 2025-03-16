@@ -63,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (levelUi.IsGamePaused())
+        {
+            return;
+        }
+
         UpdatePosition();
 
         if (Input.GetButton("Jump"))

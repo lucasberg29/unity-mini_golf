@@ -9,6 +9,11 @@ public class LevelUi : MonoBehaviour
 
     private bool isGamePaused;
 
+    private void Start()
+    {
+        isGamePaused = false;
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -29,16 +34,35 @@ public class LevelUi : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         isGamePaused = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        isGamePaused = false;
     }
 
     public void RetryLevel()
     {
+        isGamePaused = false;
+        pauseMenu.SetActive(false);
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
+    }
+
+    public bool IsGamePaused()
+    {
+        return isGamePaused;
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

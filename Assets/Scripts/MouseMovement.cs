@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
+    private LevelUi levelUi;
+
     [SerializeField]
     private Vector2 mMouseTurn;
 
@@ -20,14 +22,20 @@ public class MouseMovement : MonoBehaviour
         xRotation = 0.0f;
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         Cursor.lockState = CursorLockMode.Locked;
+
+        levelUi = GameObject.FindGameObjectWithTag("LevelUi").GetComponent<LevelUi>();
     }
 
     void Update()
     {
+        if (levelUi.IsGamePaused())
+        {
+            return;
+        }
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Accumulate input
         mMouseTurn.x += mouseX;
         mMouseTurn.y -= mouseY;
 
