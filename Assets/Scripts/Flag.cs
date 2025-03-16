@@ -31,7 +31,7 @@ public class Flag : MonoBehaviour
         }
         else if (sceneIndex == "Level3")
         {
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(0);
         }
     }
 

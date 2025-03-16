@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
+    private LevelUi levelUi;
+
     public CharacterController controller;
 
     public float speed = 10.0f;
@@ -45,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     private float smoothTime = 0.1f;
     private Vector3 currentVelocity;
 
-    public LevelUi levelUi;
 
     public float playerSpeed;
 

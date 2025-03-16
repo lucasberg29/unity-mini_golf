@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - MaxStars
   - LevelUi
+  - Level
   layers:
   - Default
   - TransparentFX
