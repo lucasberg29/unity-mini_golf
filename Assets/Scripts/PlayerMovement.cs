@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioSource ballHit;
 
-    public GameObject golfBall;
+    private GameObject golfBall;
 
     public GameObject mainCamera;
 
