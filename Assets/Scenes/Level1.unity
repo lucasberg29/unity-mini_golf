@@ -4672,7 +4672,7 @@ PrefabInstance:
     - target: {fileID: 1624828708497102319, guid: 13f4be66514ba054d82a08664c2e2f24,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.74
+      value: 8.85
       objectReference: {fileID: 0}
     - target: {fileID: 1624828708497102319, guid: 13f4be66514ba054d82a08664c2e2f24,
         type: 3}
@@ -4856,6 +4856,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948008924810576766, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_TagString
+      value: Slider
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -4553,6 +4553,11 @@ PrefabInstance:
       objectReference: {fileID: 1396403630}
     - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
         type: 3}
+      propertyPath: force
+      value: 
+      objectReference: {fileID: 813053298}
+    - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
+        type: 3}
       propertyPath: slider
       value: 
       objectReference: {fileID: 813053299}
@@ -4561,16 +4566,6 @@ PrefabInstance:
       propertyPath: strike
       value: 
       objectReference: {fileID: 813053298}
-    - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
-        type: 3}
-      propertyPath: levelUi
-      value: 
-      objectReference: {fileID: 813053297}
-    - target: {fileID: 4492390011992526420, guid: 13f4be66514ba054d82a08664c2e2f24,
-        type: 3}
-      propertyPath: golfBall
-      value: 
-      objectReference: {fileID: 1396403631}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5359,6 +5354,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelUi
       objectReference: {fileID: 0}
+    - target: {fileID: 5948008924810576766, guid: be1c3c24a177b234fb8c3f7a10643358,
+        type: 3}
+      propertyPath: m_TagString
+      value: Slider
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5370,18 +5370,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 813053295}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &813053297 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5014158595527347345, guid: be1c3c24a177b234fb8c3f7a10643358,
-    type: 3}
-  m_PrefabInstance: {fileID: 813053295}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed7d1a5c3f0147f449493fd6a9d64174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &813053298 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1017304098380243497, guid: be1c3c24a177b234fb8c3f7a10643358,
@@ -10763,12 +10751,6 @@ PrefabInstance:
 --- !u!1 &1396403630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1816318765297772506, guid: d5db519a3b63ea0479cba75706dd9f8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1396403629}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1396403631 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 266218161284769545, guid: d5db519a3b63ea0479cba75706dd9f8c,
     type: 3}
   m_PrefabInstance: {fileID: 1396403629}
   m_PrefabAsset: {fileID: 0}

@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private float smoothTime = 0.1f;
     private Vector3 currentVelocity;
 
+    public float playerGravity = 50.0f;
 
     public float playerSpeed;
 
@@ -60,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         levelUi = GameObject.FindGameObjectWithTag("LevelUi").GetComponent<LevelUi>();
+
+        slider = GameObject.FindGameObjectWithTag("Slider").GetComponent<Slider>();
     }
 
     void Update()
@@ -194,12 +197,16 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 smoothedVelocity = Vector3.SmoothDamp(velocity, targetVelocity, ref currentVelocity, smoothTime);
 
+        Vector3 gravity = Vector3.zero;
+
         if (!controller.isGrounded)
         {
-            controller.Move(Vector3.down * Time.deltaTime * 5.0f);
+            gravity += Vector3.down * playerGravity * Time.deltaTime;
         }
 
-        controller.Move(smoothedVelocity * Time.deltaTime);
+        controller.Move((smoothedVelocity + gravity) * Time.deltaTime);
+
+        velocity = controller.velocity;
     }
 
     public void setSpeed(float newSpeed)

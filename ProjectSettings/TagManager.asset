@@ -10,6 +10,7 @@ TagManager:
   - MaxStars
   - LevelUi
   - Level
+  - Slider
   layers:
   - Default
   - TransparentFX
