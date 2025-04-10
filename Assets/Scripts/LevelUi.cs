@@ -12,6 +12,16 @@ public class LevelUi : MonoBehaviour
     private void Start()
     {
         isGamePaused = false;
+
+        Scene sceneManager = SceneManager.GetActiveScene();
+        if (sceneManager.name != "Menu")
+        {
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.visible = true;
+        }
     }
 
     public void Update()
@@ -59,6 +69,7 @@ public class LevelUi : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
+        GameObject.FindGameObjectWithTag("MusicManager").GetComponent<MusicManager>().PlayNextSong(0);
     }
 
     public void QuitGame()

@@ -8,6 +8,7 @@ public class StartGame : MonoBehaviour
     public void startGame()
     {
         SceneManager.LoadScene("Level1");
+        GameObject.FindGameObjectWithTag("MusicManager").GetComponent<MusicManager>().PlayNextSong(1);
     }
 
     public void quit()

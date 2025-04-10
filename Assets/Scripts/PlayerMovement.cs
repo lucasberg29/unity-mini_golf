@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float rechargerTimer = 0.0f;
 
-    private float smoothTime = 0.1f;
     private Vector3 currentVelocity;
 
     public float playerGravity = 50.0f;
@@ -127,6 +126,11 @@ public class PlayerMovement : MonoBehaviour
                     rechargerTimer -= 0.1f;
                     levelUi.MaxForce();
                 }
+
+                if (!golfBall.GetComponent<Rigidbody>().useGravity)
+                {
+                    golfBall.GetComponent<Rigidbody>().useGravity = true;
+                }    
             }
         }
     }
@@ -194,9 +198,6 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         Vector3 targetVelocity = (right * x + forward * z) * playerSpeed;
-
-        Vector3 smoothedVelocity = Vector3.SmoothDamp(velocity, targetVelocity, ref currentVelocity, smoothTime);
-
         Vector3 gravity = Vector3.zero;
 
         if (!controller.isGrounded)
@@ -204,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
             gravity += Vector3.down * playerGravity * Time.deltaTime;
         }
 
-        controller.Move((smoothedVelocity + gravity) * Time.deltaTime);
+        controller.Move((targetVelocity + gravity) * Time.deltaTime);
 
         velocity = controller.velocity;
     }

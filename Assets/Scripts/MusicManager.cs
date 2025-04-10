@@ -6,42 +6,82 @@ using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
-    public AudioSource menuMusic;
-    public AudioSource level1;
-    public AudioSource level2;
-    public AudioSource level3;
-    public AudioSource victory;
+    [SerializeField]
+    private AudioSource currentSongPlaying;
 
-    public static MusicManager instance;
+    public AudioClip[] songs;
 
-    // Start is called before the first frame update
+    private AudioSource musicSource;
+
+    private bool isSwitchingSong;
+    private bool isLoweringVolume;
+    private bool isRaisingVolume;
+
+    public float songSwitchingSpeed;
+
+    private int nextSongIndex = 0;
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        menuMusic.Play();
+
+        musicSource = GetComponent<AudioSource>();
+        PlaySong(0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (instance == null)
+        if (isSwitchingSong)
         {
-            instance = this;
+            if (isLoweringVolume)
+            {
+                if (musicSource.volume <= 0.0f)
+                {
+                    isLoweringVolume = false;
+                    isRaisingVolume = true;
+                    PlaySong(nextSongIndex);
+                }
+                else
+                {
+                    musicSource.volume -= songSwitchingSpeed * Time.deltaTime;
+                }
+            }
+            else if (isRaisingVolume)
+            {
+                if (musicSource.volume >= 1.0f)
+                {
+                    isRaisingVolume = false;
+                    isSwitchingSong = false;
+                }
+                else
+                {
+                    musicSource.volume += songSwitchingSpeed * Time.deltaTime;
+                }
+            }
         }
+    }
 
-        Scene sceneManager = SceneManager.GetActiveScene();
-        if (sceneManager.name != "Menu")
-        {
-            Cursor.visible = false;
-        }
-        else
-        {
-            Cursor.visible = true;
-        }
+    private void PlaySong(int index)
+    {
+        musicSource.clip = songs[index];
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void PlayVictory()
     {
-        victory.Play();
+
+    }
+
+    public void PlayNextSong(int index)
+    {
+        if (index < songs.Length)
+        {
+            nextSongIndex = index;
+            isSwitchingSong = true;
+            isLoweringVolume = true;
+            //musicSource.clip = songs[index];
+            //musicSource.Play();
+        }
     }
 }

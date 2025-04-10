@@ -6,11 +6,6 @@ using UnityEngine;
 public class GolfBall : MonoBehaviour
 {
     private GameObject player;
-    
-    public Camera playerCamera;
-
-    public Rigidbody thisRigidBody;
-
     private GameObject arrow;
 
     private void Start()
@@ -27,7 +22,7 @@ public class GolfBall : MonoBehaviour
 
     private void DisableArrowIfNoVelocity()
     {
-        if (thisRigidBody.linearVelocity == Vector3.zero)
+        if (gameObject.GetComponent<Rigidbody>().linearVelocity == Vector3.zero)
         {
             arrow.SetActive(true);
         }
