@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     public GameObject musicManager;
+    public GameObject fontManager;
 
     void Start()
     {
@@ -12,6 +14,16 @@ public class MenuManager : MonoBehaviour
             Instantiate(musicManager);
         }
 
+        if (GameObject.FindGameObjectWithTag("FontManager") == null)
+        {
+            Instantiate(fontManager);
+        }
+
+        UpdateCursor();
+    }
+
+    private void UpdateCursor()
+    {
         Scene sceneManager = SceneManager.GetActiveScene();
         if (sceneManager.name != "Menu")
         {

@@ -21,6 +21,8 @@ public class MusicManager : MonoBehaviour
 
     private int nextSongIndex = 0;
 
+    public bool isMusicPlaying = true; 
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -31,6 +33,12 @@ public class MusicManager : MonoBehaviour
 
     void Update()
     {
+        if (!isMusicPlaying)
+        {
+            musicSource.Stop();
+            return;
+        }
+
         if (isSwitchingSong)
         {
             if (isLoweringVolume)

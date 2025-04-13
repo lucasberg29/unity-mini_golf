@@ -12,6 +12,7 @@ TagManager:
   - Level
   - Slider
   - MusicManager
+  - FontManager
   layers:
   - Default
   - TransparentFX
