@@ -11,6 +11,13 @@ public class LevelUi : MonoBehaviour
 
     private void Start()
     {
+        GameObject fontManager = GameObject.FindGameObjectWithTag("FontManager");
+
+        if (fontManager != null)
+        {
+            fontManager.GetComponent<FontManager>().GetTextsFromScene();
+        }
+
         isGamePaused = false;
 
         Scene sceneManager = SceneManager.GetActiveScene();

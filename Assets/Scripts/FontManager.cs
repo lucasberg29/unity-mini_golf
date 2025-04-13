@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FontManager : MonoBehaviour
@@ -12,7 +13,6 @@ public class FontManager : MonoBehaviour
     void Start()
     {
         textsInScene = new List<TextMeshProUGUI>(GameObject.FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None));
-
         DontDestroyOnLoad(gameObject);
     }
 
@@ -38,6 +38,21 @@ public class FontManager : MonoBehaviour
                 {
                     text.fontSize = 60;
                 }
+
+                if (text.gameObject.name == "GamePausedTitleText")
+                {
+                    text.fontSize = 50;
+                }
+
+                if (text.gameObject.name == "ResumeButtonText")
+                {
+                    text.fontSize = 40;
+                }
+
+                if (text.gameObject.name == "ResumeButtonText")
+                {
+                    text.fontSize = 30;
+                }
             }
 
             if (currentWidth < 1900 && currentWidth >= 1600)
@@ -55,6 +70,16 @@ public class FontManager : MonoBehaviour
                 if (text.gameObject.name == "QuitButtonText")
                 {
                     text.fontSize = 45;
+                }
+
+                if (text.gameObject.name == "GamePausedTitleText")
+                {
+                    text.fontSize = 50;
+                }
+
+                if (text.gameObject.name == "ResumeButtonText")
+                {
+                    text.fontSize = 30;
                 }
             }
 
@@ -74,7 +99,22 @@ public class FontManager : MonoBehaviour
                 {
                     text.fontSize = 30;
                 }
+
+                if (text.gameObject.name == "GamePausedTitleText")
+                {
+                    text.fontSize = 30;
+                }
+
+                if (text.gameObject.name == "ResumeButtonText")
+                {
+                    text.fontSize = 20;
+                }
             }
         }
+    }
+
+    public void GetTextsFromScene()
+    {
+        textsInScene = new List<TextMeshProUGUI>(GameObject.FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None));
     }
 }

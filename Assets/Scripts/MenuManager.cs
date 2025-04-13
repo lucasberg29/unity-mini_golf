@@ -14,9 +14,15 @@ public class MenuManager : MonoBehaviour
             Instantiate(musicManager);
         }
 
-        if (GameObject.FindGameObjectWithTag("FontManager") == null)
+        GameObject fontManager = GameObject.FindGameObjectWithTag("FontManager");
+
+        if (fontManager == null)
         {
             Instantiate(fontManager);
+        }
+        else
+        {
+            fontManager.GetComponent<FontManager>().GetTextsFromScene();
         }
 
         UpdateCursor();

@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 24b711015891e944aa90932d04fe2c87, type: 3}
   - {fileID: 8300000, guid: 66da7622e2576f549ad1c89e5bdfc21f, type: 3}
   songSwitchingSpeed: 1
-  isMusicPlaying: 0
+  isMusicPlaying: 1
 --- !u!82 &6546243832797647585
 AudioSource:
   m_ObjectHideFlags: 0
