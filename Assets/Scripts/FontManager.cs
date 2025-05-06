@@ -83,6 +83,35 @@ public class FontManager : MonoBehaviour
                 }
             }
 
+            if (currentWidth < 1600 && currentWidth >= 1280)
+            {
+                if (text.gameObject.name == "GameTitle")
+                {
+                    text.fontSize = 80;
+                }
+
+                if (text.gameObject.name == "StartButtonText")
+                {
+                    text.fontSize = 30;
+                }
+
+                if (text.gameObject.name == "QuitButtonText")
+                {
+                    text.fontSize = 30;
+                }
+
+                if (text.gameObject.name == "GamePausedTitleText")
+                {
+                    text.fontSize = 30;
+                }
+
+                if (text.gameObject.name == "ResumeButtonText")
+                {
+                    text.fontSize = 20;
+                }
+            }
+
+
             if (currentWidth < 1200 && currentWidth >= 900)
             {
                 if (text.gameObject.name == "GameTitle")
