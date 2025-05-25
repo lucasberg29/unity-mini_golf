@@ -13,7 +13,7 @@ public class FontManager : MonoBehaviour
     void Start()
     {
         textsInScene = new List<TextMeshProUGUI>(GameObject.FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None));
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Update()

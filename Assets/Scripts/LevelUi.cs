@@ -12,14 +12,12 @@ public class LevelUi : MonoBehaviour
     private void Start()
     {
         GameObject fontManager = GameObject.FindGameObjectWithTag("FontManager");
-
         if (fontManager != null)
         {
             fontManager.GetComponent<FontManager>().GetTextsFromScene();
         }
 
         isGamePaused = false;
-
         Scene sceneManager = SceneManager.GetActiveScene();
         if (sceneManager.name != "Menu")
         {
@@ -52,6 +50,7 @@ public class LevelUi : MonoBehaviour
         pauseMenu.SetActive(true);
         isGamePaused = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ResumeGame()

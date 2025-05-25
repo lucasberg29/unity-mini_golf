@@ -14,15 +14,15 @@ public class MenuManager : MonoBehaviour
             Instantiate(musicManager);
         }
 
-        GameObject fontManager = GameObject.FindGameObjectWithTag("FontManager");
-
-        if (fontManager == null)
+        GameObject currentFontManager = GameObject.FindGameObjectWithTag("FontManager");
+        if (currentFontManager == null)
         {
             Instantiate(fontManager);
+            DontDestroyOnLoad(fontManager);
         }
         else
         {
-            fontManager.GetComponent<FontManager>().GetTextsFromScene();
+            currentFontManager.GetComponent<FontManager>().GetTextsFromScene();
         }
 
         UpdateCursor();
@@ -34,6 +34,7 @@ public class MenuManager : MonoBehaviour
         if (sceneManager.name != "Menu")
         {
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
@@ -41,7 +42,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
