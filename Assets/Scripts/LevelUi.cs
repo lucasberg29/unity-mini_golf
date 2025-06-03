@@ -57,6 +57,7 @@ public class LevelUi : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         isGamePaused = false;
+        Cursor.visible = false;
     }
 
     public void RetryLevel()
